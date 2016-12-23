@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Restaurante D\' Charlye</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Configuraciones</string>
+
+    <string name="ayuda_main">Desliza desde la izquierda.</string>
+
+    <string name="menu_carta">Carta</string>
+    <string name="menu_consumo">Consumo</string>
+    <string name="menu_compartir">Compartir</string>
+    <string name="menu_opinion">Opinión</string>
+
+    <string name="title_activity_carta">Carta</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+</resources>
