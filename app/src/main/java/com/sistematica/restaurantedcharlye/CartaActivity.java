@@ -1,23 +1,24 @@
 package com.sistematica.restaurantedcharlye;
 
+import android.os.Bundle;
 import android.support.design.widget.TabLayout;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-
+import android.widget.ListView;
 import android.widget.TextView;
+
+import com.sistematica.restaurantedcharlye.adaptores_lista.carta;
+
+import java.util.ArrayList;
 
 public class CartaActivity extends AppCompatActivity {
 
@@ -35,6 +36,13 @@ public class CartaActivity extends AppCompatActivity {
      * The {@link ViewPager} that will host the section contents.
      */
     private ViewPager mViewPager;
+
+    ListView lv_carta;
+    ArrayList<carta> lpollos = new ArrayList<carta>();
+    ArrayList<carta> lchifa = new ArrayList<carta>();
+    ArrayList<carta> lparrilla = new ArrayList<carta>();
+    ArrayList<carta> lbebidas = new ArrayList<carta>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,7 +118,30 @@ public class CartaActivity extends AppCompatActivity {
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_carta, container, false);
             TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-            textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
+//            textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
+
+            // mi codigo xD
+//            switch (getArguments().getInt(ARG_SECTION_NUMBER)) {
+//                case 1:
+//                    textView.setText(textView.getText() + "Pollos,\n");
+//                case 2:
+//                    textView.setText(textView.getText() + "Chifas,\n");
+//                case 3:
+//                    textView.setText(textView.getText() + "Parrillas,\n");
+//                case 4:
+//                    textView.setText(textView.getText() + "Otros xD,\n");
+//            }
+
+            if ((getArguments().getInt(ARG_SECTION_NUMBER)) == 1) {
+                textView.setText(textView.getText() + "Pollos,\n");
+            } else if ((getArguments().getInt(ARG_SECTION_NUMBER)) == 2) {
+                textView.setText(textView.getText() + "Chifas,\n");
+            } else if ((getArguments().getInt(ARG_SECTION_NUMBER)) == 3) {
+                textView.setText(textView.getText() + "Parrillas,\n");
+            } else if ((getArguments().getInt(ARG_SECTION_NUMBER)) == 4) {
+                textView.setText(textView.getText() + "Otros xD,\n");
+            }
+
             return rootView;
         }
     }
@@ -127,6 +158,53 @@ public class CartaActivity extends AppCompatActivity {
 
         @Override
         public Fragment getItem(int position) {
+//            switch (position) {
+//                case 0:
+//                    Toast.makeText(CartaActivity.this, "Hola mundo! Pollo", Toast.LENGTH_SHORT).show();
+//
+//                    return PlaceholderFragment.newInstance(position + 1);
+//                case 1:
+//                    lchifa.add(new carta(getDrawable(R.mipmap.ic_launcher),"Chifa1"));
+//                    lchifa.add(new carta(getDrawable(R.mipmap.ic_launcher),"Chifa2"));
+//                    lchifa.add(new carta(getDrawable(R.mipmap.ic_launcher),"Chifa3"));
+//                    lchifa.add(new carta(getDrawable(R.mipmap.ic_launcher),"Chifa4"));
+//
+//                    lv_carta = (ListView) findViewById(R.id.lv_lista_carta);
+//                    lista_carta adaptador_chifa = new lista_carta(this,lchifa);
+//                    lv_carta.setAdapter(adaptador_chifa);
+//
+//                    Toast.makeText(CartaActivity.this, "Hola mundo! Chifas!", Toast.LENGTH_SHORT).show();
+//
+//                    return PlaceholderFragment.newInstance(position + 1);
+//                case 2:
+//                    lparrilla.add(new carta(getDrawable(R.mipmap.ic_launcher),"Parrilla2"));
+//                    lparrilla.add(new carta(getDrawable(R.mipmap.ic_launcher),"Parrilla3"));
+//                    lparrilla.add(new carta(getDrawable(R.mipmap.ic_launcher),"Parrilla4"));
+//                    lparrilla.add(new carta(getDrawable(R.mipmap.ic_launcher),"Parrilla5"));
+//
+//                    lv_carta = (ListView) findViewById(R.id.lv_lista_carta);
+//                    lista_carta adaptador_parrila = new lista_carta(this,lparrilla);
+//                    lv_carta.setAdapter(adaptador_parrila);
+//
+//                    Toast.makeText(CartaActivity.this, "Hola mundo! Parrishas!", Toast.LENGTH_SHORT).show();
+//
+//                    return PlaceholderFragment.newInstance(position + 1);
+//                case 3:
+//                    lbebidas.add(new carta(getDrawable(R.mipmap.ic_launcher),"Gaseosa1"));
+//                    lbebidas.add(new carta(getDrawable(R.mipmap.ic_launcher),"Gaseosa2"));
+//                    lbebidas.add(new carta(getDrawable(R.mipmap.ic_launcher),"Gaseosa3"));
+//                    lbebidas.add(new carta(getDrawable(R.mipmap.ic_launcher),"Jugo4"));
+//                    lv_carta = (ListView) findViewById(R.id.lv_lista_carta);
+//                    lista_carta adaptador_bebidas = new lista_carta(this,lbebidas);
+//                    lv_carta.setAdapter(adaptador_bebidas);
+//
+//                    Toast.makeText(CartaActivity.this, "Hola mundo! Otros xD", Toast.LENGTH_SHORT).show();
+//
+//                    return PlaceholderFragment.newInstance(position + 1);
+//            }
+//
+//            return null;
+
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
             return PlaceholderFragment.newInstance(position + 1);
