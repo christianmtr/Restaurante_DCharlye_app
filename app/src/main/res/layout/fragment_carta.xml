@@ -8,20 +8,9 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.sistematica.restaurantedcharlye.CartaActivity$PlaceholderFragment">
 
-    <LinearLayout
-        android:orientation="vertical"
+    <ListView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <TextView
-            android:id="@+id/section_label"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <ListView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/lv_lista_carta" />
-    </LinearLayout>
+        android:layout_height="match_parent"
+        android:id="@+id/lv_lista_carta" />
 
 </RelativeLayout>

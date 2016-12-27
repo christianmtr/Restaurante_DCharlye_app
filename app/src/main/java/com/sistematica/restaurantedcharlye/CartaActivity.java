@@ -1,5 +1,6 @@
 package com.sistematica.restaurantedcharlye;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -14,9 +15,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.sistematica.restaurantedcharlye.adaptores_lista.carta;
+import com.sistematica.restaurantedcharlye.adaptores_lista.lista_carta;
 
 import java.util.ArrayList;
 
@@ -37,11 +38,11 @@ public class CartaActivity extends AppCompatActivity {
      */
     private ViewPager mViewPager;
 
-    ListView lv_carta;
-    ArrayList<carta> lpollos = new ArrayList<carta>();
-    ArrayList<carta> lchifa = new ArrayList<carta>();
-    ArrayList<carta> lparrilla = new ArrayList<carta>();
-    ArrayList<carta> lbebidas = new ArrayList<carta>();
+    static ListView lv_carta;
+    static ArrayList<carta> lpollos = new ArrayList<carta>();
+    static ArrayList<carta> lchifa = new ArrayList<carta>();
+    static ArrayList<carta> lparrilla = new ArrayList<carta>();
+    static ArrayList<carta> lbebidas = new ArrayList<carta>();
 
 
     @Override
@@ -63,8 +64,31 @@ public class CartaActivity extends AppCompatActivity {
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
 
+        /***********************************************/
+        Drawable d = getDrawable(R.mipmap.ic_launcher);
+        lpollos.add(new carta(d, "Pollo1"));
+        lpollos.add(new carta(d, "Pollo2"));
+        lpollos.add(new carta(d, "Pollo3"));
+        lpollos.add(new carta(d, "Pollo4"));
+        lchifa.add(new carta(d, "Chifa1"));
+        lchifa.add(new carta(d, "Chifa2"));
+        lchifa.add(new carta(d, "Chifa3"));
+        lchifa.add(new carta(d, "Chifa4"));
+        lparrilla.add(new carta(d, "Parrilla2"));
+        lparrilla.add(new carta(d, "Parrilla3"));
+        lparrilla.add(new carta(d, "Parrilla4"));
+        lparrilla.add(new carta(d, "Parrilla5"));
+        lbebidas.add(new carta(d, "Gaseosa1"));
+        lbebidas.add(new carta(d, "Gaseosa2"));
+        lbebidas.add(new carta(d, "Gaseosa3"));
+        lbebidas.add(new carta(d, "Jugo4"));
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        limpia_todo();
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -117,10 +141,8 @@ public class CartaActivity extends AppCompatActivity {
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_carta, container, false);
-            TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-//            textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
 
-            // mi codigo xD
+            /*********************************** mi codigo ****************************************/
 //            switch (getArguments().getInt(ARG_SECTION_NUMBER)) {
 //                case 1:
 //                    textView.setText(textView.getText() + "Pollos,\n");
@@ -133,13 +155,28 @@ public class CartaActivity extends AppCompatActivity {
 //            }
 
             if ((getArguments().getInt(ARG_SECTION_NUMBER)) == 1) {
-                textView.setText(textView.getText() + "Pollos,\n");
+//                textView.setText(textView.getText() + "Pollos,\n");
+                lv_carta = (ListView) rootView.findViewById(R.id.lv_lista_carta);
+
+                lista_carta adaptador_pollos = new lista_carta(getActivity(), lpollos);
+                lv_carta.setAdapter(adaptador_pollos);
             } else if ((getArguments().getInt(ARG_SECTION_NUMBER)) == 2) {
-                textView.setText(textView.getText() + "Chifas,\n");
+//                textView.setText(textView.getText() + "Chifas,\n");
+
+                lv_carta = (ListView) rootView.findViewById(R.id.lv_lista_carta);
+                lista_carta adaptador_chifa = new lista_carta(getActivity(), lchifa);
+                lv_carta.setAdapter(adaptador_chifa);
             } else if ((getArguments().getInt(ARG_SECTION_NUMBER)) == 3) {
-                textView.setText(textView.getText() + "Parrillas,\n");
+//                textView.setText(textView.getText() + "Parrillas,\n");
+
+                lv_carta = (ListView) rootView.findViewById(R.id.lv_lista_carta);
+                lista_carta adaptador_parrila = new lista_carta(getActivity(), lparrilla);
+                lv_carta.setAdapter(adaptador_parrila);
             } else if ((getArguments().getInt(ARG_SECTION_NUMBER)) == 4) {
-                textView.setText(textView.getText() + "Otros xD,\n");
+//                textView.setText(textView.getText() + "Otros xD,\n");
+                lv_carta = (ListView) rootView.findViewById(R.id.lv_lista_carta);
+                lista_carta adaptador_bebidas = new lista_carta(getActivity(), lbebidas);
+                lv_carta.setAdapter(adaptador_bebidas);
             }
 
             return rootView;
@@ -183,5 +220,12 @@ public class CartaActivity extends AppCompatActivity {
             }
             return null;
         }
+    }
+
+    public void limpia_todo() {
+        lpollos.clear();
+        lchifa.clear();
+        lparrilla.clear();
+        lbebidas.clear();
     }
 }
