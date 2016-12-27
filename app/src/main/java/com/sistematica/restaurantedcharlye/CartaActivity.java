@@ -158,53 +158,6 @@ public class CartaActivity extends AppCompatActivity {
 
         @Override
         public Fragment getItem(int position) {
-//            switch (position) {
-//                case 0:
-//                    Toast.makeText(CartaActivity.this, "Hola mundo! Pollo", Toast.LENGTH_SHORT).show();
-//
-//                    return PlaceholderFragment.newInstance(position + 1);
-//                case 1:
-//                    lchifa.add(new carta(getDrawable(R.mipmap.ic_launcher),"Chifa1"));
-//                    lchifa.add(new carta(getDrawable(R.mipmap.ic_launcher),"Chifa2"));
-//                    lchifa.add(new carta(getDrawable(R.mipmap.ic_launcher),"Chifa3"));
-//                    lchifa.add(new carta(getDrawable(R.mipmap.ic_launcher),"Chifa4"));
-//
-//                    lv_carta = (ListView) findViewById(R.id.lv_lista_carta);
-//                    lista_carta adaptador_chifa = new lista_carta(this,lchifa);
-//                    lv_carta.setAdapter(adaptador_chifa);
-//
-//                    Toast.makeText(CartaActivity.this, "Hola mundo! Chifas!", Toast.LENGTH_SHORT).show();
-//
-//                    return PlaceholderFragment.newInstance(position + 1);
-//                case 2:
-//                    lparrilla.add(new carta(getDrawable(R.mipmap.ic_launcher),"Parrilla2"));
-//                    lparrilla.add(new carta(getDrawable(R.mipmap.ic_launcher),"Parrilla3"));
-//                    lparrilla.add(new carta(getDrawable(R.mipmap.ic_launcher),"Parrilla4"));
-//                    lparrilla.add(new carta(getDrawable(R.mipmap.ic_launcher),"Parrilla5"));
-//
-//                    lv_carta = (ListView) findViewById(R.id.lv_lista_carta);
-//                    lista_carta adaptador_parrila = new lista_carta(this,lparrilla);
-//                    lv_carta.setAdapter(adaptador_parrila);
-//
-//                    Toast.makeText(CartaActivity.this, "Hola mundo! Parrishas!", Toast.LENGTH_SHORT).show();
-//
-//                    return PlaceholderFragment.newInstance(position + 1);
-//                case 3:
-//                    lbebidas.add(new carta(getDrawable(R.mipmap.ic_launcher),"Gaseosa1"));
-//                    lbebidas.add(new carta(getDrawable(R.mipmap.ic_launcher),"Gaseosa2"));
-//                    lbebidas.add(new carta(getDrawable(R.mipmap.ic_launcher),"Gaseosa3"));
-//                    lbebidas.add(new carta(getDrawable(R.mipmap.ic_launcher),"Jugo4"));
-//                    lv_carta = (ListView) findViewById(R.id.lv_lista_carta);
-//                    lista_carta adaptador_bebidas = new lista_carta(this,lbebidas);
-//                    lv_carta.setAdapter(adaptador_bebidas);
-//
-//                    Toast.makeText(CartaActivity.this, "Hola mundo! Otros xD", Toast.LENGTH_SHORT).show();
-//
-//                    return PlaceholderFragment.newInstance(position + 1);
-//            }
-//
-//            return null;
-
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
             return PlaceholderFragment.newInstance(position + 1);
