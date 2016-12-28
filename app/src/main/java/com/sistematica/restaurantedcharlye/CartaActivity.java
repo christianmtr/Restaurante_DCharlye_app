@@ -87,7 +87,7 @@ public class CartaActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        limpia_todo();
+        limpia_listas();
     }
 
     @Override
@@ -155,25 +155,18 @@ public class CartaActivity extends AppCompatActivity {
 //            }
 
             if ((getArguments().getInt(ARG_SECTION_NUMBER)) == 1) {
-//                textView.setText(textView.getText() + "Pollos,\n");
                 lv_carta = (ListView) rootView.findViewById(R.id.lv_lista_carta);
-
                 lista_carta adaptador_pollos = new lista_carta(getActivity(), lpollos);
                 lv_carta.setAdapter(adaptador_pollos);
             } else if ((getArguments().getInt(ARG_SECTION_NUMBER)) == 2) {
-//                textView.setText(textView.getText() + "Chifas,\n");
-
                 lv_carta = (ListView) rootView.findViewById(R.id.lv_lista_carta);
                 lista_carta adaptador_chifa = new lista_carta(getActivity(), lchifa);
                 lv_carta.setAdapter(adaptador_chifa);
             } else if ((getArguments().getInt(ARG_SECTION_NUMBER)) == 3) {
-//                textView.setText(textView.getText() + "Parrillas,\n");
-
                 lv_carta = (ListView) rootView.findViewById(R.id.lv_lista_carta);
                 lista_carta adaptador_parrila = new lista_carta(getActivity(), lparrilla);
                 lv_carta.setAdapter(adaptador_parrila);
             } else if ((getArguments().getInt(ARG_SECTION_NUMBER)) == 4) {
-//                textView.setText(textView.getText() + "Otros xD,\n");
                 lv_carta = (ListView) rootView.findViewById(R.id.lv_lista_carta);
                 lista_carta adaptador_bebidas = new lista_carta(getActivity(), lbebidas);
                 lv_carta.setAdapter(adaptador_bebidas);
@@ -222,7 +215,7 @@ public class CartaActivity extends AppCompatActivity {
         }
     }
 
-    public void limpia_todo() {
+    public void limpia_listas() {
         lpollos.clear();
         lchifa.clear();
         lparrilla.clear();

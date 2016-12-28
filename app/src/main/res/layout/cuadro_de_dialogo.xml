@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="24dp">
+
+    <TextView
+        android:text="Ingrese N° de mesa:"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_dialogo_nmesa"
+        android:textSize="24sp"
+        android:textStyle="normal|bold" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/et_dialogo_nmesa"
+        android:layout_marginTop="24dp"
+        android:textAlignment="center" />
+
+    <!--<LinearLayout-->
+    <!--android:orientation="horizontal"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent">-->
+
+    <!--<Button-->
+    <!--android:text="Cancelar"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:id="@+id/btn_dialogo_cancelar"-->
+    <!--android:layout_weight="1"-->
+    <!--android:layout_marginTop="24dp" />-->
+
+    <!--<Button-->
+    <!--android:text="Consultar"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:id="@+id/btn_dialogo_aceptar"-->
+    <!--android:layout_weight="1"-->
+    <!--android:layout_marginTop="24dp" />-->
+    <!--</LinearLayout>-->
+</LinearLayout>

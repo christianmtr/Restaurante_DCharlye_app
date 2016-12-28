@@ -27,6 +27,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.sistematica.restaurantedcharlye.MainActivity" />
         </activity>
+        <activity android:name=".Consumo_Activity"></activity>
     </application>
 
 </manifest>
