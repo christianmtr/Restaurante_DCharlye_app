@@ -24,12 +24,15 @@ public class PedirMesa extends AsyncTask {
         super();
         nmesa = nm;
         pd = p;
+        Log.d("Constructor", "Ya esta aqui");
     }
 
     @Override
     protected void onPreExecute() {
-//        super.onPreExecute();
-        ProgressDialog.show(pd.getContext(), "Consultando", "Por favor espere...", true, false);
+        super.onPreExecute();
+        pd.setCancelable(false);
+        pd.show();
+        Log.d("onPreExecute", "Ya esta aqui");
     }
 
     @Override
@@ -45,17 +48,22 @@ public class PedirMesa extends AsyncTask {
 //            readStream(in);
         } catch (MalformedURLException e) {
             e.printStackTrace();
+            Log.d("Primer catch", "MalformedURLException");
         } catch (IOException e) {
             e.printStackTrace();
+            Log.d("Segundo catch", "IOExection");
         } finally {
             urlConnection.disconnect();
+            Log.d("Finally", "Ya esta aqui");
         }
         return in;
     }
 
     @Override
     protected void onPostExecute(Object o) {
-//        super.onPostExecute(o);
+        super.onPostExecute(o);
+        Log.d("onPostExecute", "antes del dismiss()");
         pd.dismiss();
+        Log.d("onPostExecute", "despues del dismiss()");
     }
 }

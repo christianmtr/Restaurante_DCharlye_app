@@ -107,7 +107,7 @@ public class ConsumosActivity extends AppCompatActivity {
                                     PedirNumeroMesaDialog().show();
                                 } else {
                                     tv_consumo.setText(nmesa);
-//                                    pd.setMessage("Consultando informacion, por favor espere...");
+                                    pd.setMessage("Consultando informacion, por favor espere...");
                                     PedirMesa respuesta = new PedirMesa(nmesa, pd);
                                     respuesta.execute();
                                 }
