@@ -18,10 +18,6 @@
                 android:id="@+id/nav_share"
                 android:icon="@drawable/ic_menu_share"
                 android:title="@string/menu_compartir" />
-            <item
-                android:id="@+id/nav_opinion"
-                android:icon="@drawable/ic_menu_send"
-                android:title="@string/menu_opinion" />
         </menu>
     </item>
 

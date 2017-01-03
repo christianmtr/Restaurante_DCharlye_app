@@ -4,7 +4,7 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
-    <string name="action_settings">Configuraciones</string>
+    <string name="action_consumos">Ver detalle</string>
 
     <string name="ayuda_main">Desliza desde la izquierda.</string>
 
@@ -15,5 +15,8 @@
 
     <string name="title_activity_carta">Carta</string>
     <string name="section_format">Hello World from section: %1$d</string>
-    <string name="title_activity_consumo_">Consumo</string>
+    <string name="title_activity_consumos">Consumos</string>
+    <string name="title_activity_compartir">Compartir</string>
+
+    <string name="facebook_app_id">929649513802233</string>
 </resources>

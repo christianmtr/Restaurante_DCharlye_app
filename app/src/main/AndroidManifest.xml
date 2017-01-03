@@ -27,7 +27,44 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.sistematica.restaurantedcharlye.MainActivity" />
         </activity>
-        <activity android:name=".Consumo_Activity"></activity>
+        <activity
+            android:name=".ConsumosActivity"
+            android:label="@string/title_activity_consumos"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.sistematica.restaurantedcharlye.MainActivity" />
+        </activity>
+        <activity
+            android:name=".CompartirActivity"
+            android:label="@string/title_activity_compartir"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.sistematica.restaurantedcharlye.MainActivity" />
+        </activity>
+
+        <!-- Facebook -->
+        <activity
+            android:name="com.facebook.FacebookActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/app_name" />
+
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationName"
+            android:value="@string/app_name" />
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+
+        <provider
+            android:authorities="com.facebook.app.FacebookContentProvider929649513802233"
+            android:name="com.facebook.FacebookContentProvider"
+            android:exported="true" />
     </application>
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 </manifest>
