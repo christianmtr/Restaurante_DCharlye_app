@@ -1,10 +1,7 @@
 package com.sistematica.restaurantedcharlye;
 
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.DialogInterface;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -20,11 +17,16 @@ import android.widget.Toast;
 
 import com.sistematica.restaurantedcharlye.peticiones_servicioweb.PedirMesa;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.concurrent.ExecutionException;
+
 public class ConsumosActivity extends AppCompatActivity {
 
     EditText et_dialogo_nmesa;
     EditText et_resultado;
-    TextView tv_consumo;
+    TextView tv_consumo_subtotal;
     ProgressDialog pd;
 
     @Override
@@ -36,21 +38,16 @@ public class ConsumosActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        tv_consumo = (TextView) findViewById(R.id.tv_consumo);
+        tv_consumo_subtotal = (TextView) findViewById(R.id.tv_consumo_subtotal);
 
         pd = new ProgressDialog(this);
 
-        ConnectivityManager connMgr = (ConnectivityManager)
-                getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
-        if (networkInfo != null && networkInfo.isConnected()) {
-            Toast.makeText(this, "Si hay conexion.", Toast.LENGTH_SHORT).show();
+        if (isOnlineNet()) {
             PedirNumeroMesaDialog().show();
         } else {
-            Toast.makeText(this, "No hay conexion a Internet.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "No se puede acceder al servicio. Compruebe su conexion a Internet.", Toast.LENGTH_SHORT).show();
             this.finish();
         }
-
     }
 
     @Override
@@ -90,7 +87,6 @@ public class ConsumosActivity extends AppCompatActivity {
         View v = inflater.inflate(R.layout.cuadro_de_dialogo, null);
 
         et_dialogo_nmesa = (EditText) v.findViewById(R.id.et_dialogo_nmesa);
-        et_resultado = (EditText) v.findViewById(R.id.et_resultado);
 
         builder.setView(v);
 
@@ -106,10 +102,24 @@ public class ConsumosActivity extends AppCompatActivity {
                                     Toast.makeText(ConsumosActivity.this, "Debe ingresar el número de mesa.", Toast.LENGTH_LONG).show();
                                     PedirNumeroMesaDialog().show();
                                 } else {
-                                    tv_consumo.setText(nmesa);
                                     pd.setMessage("Consultando informacion, por favor espere...");
-                                    PedirMesa respuesta = new PedirMesa(nmesa, pd);
-                                    respuesta.execute();
+                                    PedirMesa respuesta = new PedirMesa(nmesa, pd, et_resultado);
+                                    try {
+                                        String r = respuesta.execute().get();
+                                        Log.d("ElResultado", "r= " + r);
+
+                                        JSONObject rr = new JSONObject(r.substring(1, r.length() - 1));
+                                        String subtotal = rr.getJSONObject("fields").getString("SubTotal");
+                                        Log.d("json_decodeado", "SubTotal= " + subtotal);
+
+                                        tv_consumo_subtotal.setText(tv_consumo_subtotal.getText() + subtotal);
+                                    } catch (InterruptedException e) {
+                                        e.printStackTrace();
+                                    } catch (ExecutionException e) {
+                                        e.printStackTrace();
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
                                 }
                             }
                         }
@@ -125,5 +135,18 @@ public class ConsumosActivity extends AppCompatActivity {
                 );
 
         return builder.create();
+    }
+
+    public Boolean isOnlineNet() {
+        try {
+            Process p = java.lang.Runtime.getRuntime().exec("ping -c 1 www.google.com");
+            int val = p.waitFor();
+            boolean reachable = (val == 0);
+            return reachable;
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return false;
     }
 }

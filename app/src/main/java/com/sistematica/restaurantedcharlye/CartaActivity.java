@@ -1,5 +1,6 @@
 package com.sistematica.restaurantedcharlye;
 
+import android.app.ProgressDialog;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -9,6 +10,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,8 +18,13 @@ import android.widget.ListView;
 
 import com.sistematica.restaurantedcharlye.adaptores_lista.carta;
 import com.sistematica.restaurantedcharlye.adaptores_lista.lista_carta;
+import com.sistematica.restaurantedcharlye.peticiones_servicioweb.PedirListaCarta;
+
+import org.json.JSONArray;
+import org.json.JSONException;
 
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 public class CartaActivity extends AppCompatActivity {
 
@@ -42,6 +49,8 @@ public class CartaActivity extends AppCompatActivity {
     static ArrayList<carta> lparrilla = new ArrayList<carta>();
     static ArrayList<carta> lbebidas = new ArrayList<carta>();
 
+    ProgressDialog pd;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +64,45 @@ public class CartaActivity extends AppCompatActivity {
         // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
+        Drawable d = getDrawable(R.mipmap.ic_launcher);
+
+        pd = new ProgressDialog(this);
+        pd.setMessage("Consultando informacion, por favor espere...");
+
+        PedirListaCarta plc = new PedirListaCarta(pd);
+
+        try {
+            String r = plc.execute().get();
+            Log.d("ElResultado", "r= " + r);
+
+//            JSONObject rr = new JSONObject(r.substring(1,r.length()-1));
+            JSONArray rr = new JSONArray(r);
+
+            for (int i = 0; i < rr.getJSONObject(0).getJSONArray("platillos").length(); i++) {
+                String temp1 = rr.getJSONObject(0).getJSONArray("platillos").getJSONObject(i).getJSONObject("fields").getString("NombrePlatillo");
+                String temp2 = rr.getJSONObject(0).getJSONArray("platillos").getJSONObject(i).getJSONObject("fields").getString("TipoPlatillo");
+                if (temp2.equals("1")) {
+                    lpollos.add(new carta(d, temp1));
+                } else if (temp2.equals("2")) {
+                    lchifa.add(new carta(d, temp1));
+                } else if (temp2.equals("3")) {
+                    lparrilla.add(new carta(d, temp1));
+                }
+            }
+
+            for (int j = 0; j < rr.getJSONObject(1).getJSONArray("productos").length(); j++) {
+                String temp1 = rr.getJSONObject(1).getJSONArray("productos").getJSONObject(j).getJSONObject("fields").getString("NombreProducto");
+                lbebidas.add(new carta(d, temp1));
+            }
+
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
@@ -62,24 +110,6 @@ public class CartaActivity extends AppCompatActivity {
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
 
-        /***********************************************/
-        Drawable d = getDrawable(R.mipmap.ic_launcher);
-        lpollos.add(new carta(d, "Pollo1"));
-        lpollos.add(new carta(d, "Pollo2"));
-        lpollos.add(new carta(d, "Pollo3"));
-        lpollos.add(new carta(d, "Pollo4"));
-        lchifa.add(new carta(d, "Chifa1"));
-        lchifa.add(new carta(d, "Chifa2"));
-        lchifa.add(new carta(d, "Chifa3"));
-        lchifa.add(new carta(d, "Chifa4"));
-        lparrilla.add(new carta(d, "Parrilla2"));
-        lparrilla.add(new carta(d, "Parrilla3"));
-        lparrilla.add(new carta(d, "Parrilla4"));
-        lparrilla.add(new carta(d, "Parrilla5"));
-        lbebidas.add(new carta(d, "Gaseosa1"));
-        lbebidas.add(new carta(d, "Gaseosa2"));
-        lbebidas.add(new carta(d, "Gaseosa3"));
-        lbebidas.add(new carta(d, "Jugo4"));
     }
 
     @Override
@@ -119,17 +149,6 @@ public class CartaActivity extends AppCompatActivity {
             View rootView = inflater.inflate(R.layout.fragment_carta, container, false);
 
             /*********************************** mi codigo ****************************************/
-//            switch (getArguments().getInt(ARG_SECTION_NUMBER)) {
-//                case 1:
-//                    textView.setText(textView.getText() + "Pollos,\n");
-//                case 2:
-//                    textView.setText(textView.getText() + "Chifas,\n");
-//                case 3:
-//                    textView.setText(textView.getText() + "Parrillas,\n");
-//                case 4:
-//                    textView.setText(textView.getText() + "Otros xD,\n");
-//            }
-
             if ((getArguments().getInt(ARG_SECTION_NUMBER)) == 1) {
                 lv_carta = (ListView) rootView.findViewById(R.id.lv_lista_carta);
                 lista_carta adaptador_pollos = new lista_carta(getActivity(), lpollos);

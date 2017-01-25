@@ -32,5 +32,7 @@ dependencies {
 
     compile 'com.facebook.android:facebook-android-sdk:4.+'
 
+    compile 'nl.littlerobots.cupboard-tools:gson:0.3.1'
+
     testCompile 'junit:junit:4.12'
 }

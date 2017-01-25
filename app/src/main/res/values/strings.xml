@@ -18,5 +18,8 @@
     <string name="title_activity_consumos">Consumos</string>
     <string name="title_activity_compartir">Compartir</string>
 
+    <string name="tv_consumo_titulo">SubTotal</string>
+    <string name="tv_consumo_subtotal">S/. </string>
+
     <string name="facebook_app_id">929649513802233</string>
 </resources>

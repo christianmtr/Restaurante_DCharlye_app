@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/tv_lista"
         android:layout_weight="1"
-        android:textSize="24sp"
+        android:textSize="18sp"
         android:textAlignment="viewStart" />
 
     <ImageView
