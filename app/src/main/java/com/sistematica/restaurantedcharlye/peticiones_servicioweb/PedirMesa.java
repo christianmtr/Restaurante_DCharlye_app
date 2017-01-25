@@ -35,7 +35,7 @@ public class PedirMesa extends AsyncTask<String, Void, String> {
 
     @Override
     protected String doInBackground(String... params) {
-        String u = "http://restaurantedcharlye.pythonanywhere.com//servicio_web/ver_pedido/" + nmesa + "/";
+        String u = "http://restaurantedcharlye.pythonanywhere.com/servicio_web/ver_pedido/" + nmesa + "/";
         HttpURLConnection urlConnection = null;
         Log.d("Peticion", "doInBackground: u=" + u);
         StringBuilder sb = null;
