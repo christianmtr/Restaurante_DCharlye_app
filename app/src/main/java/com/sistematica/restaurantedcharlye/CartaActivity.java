@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.sistematica.restaurantedcharlye.adaptores_lista.carta;
 import com.sistematica.restaurantedcharlye.adaptores_lista.lista_carta;
@@ -65,6 +66,11 @@ public class CartaActivity extends AppCompatActivity {
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
         Drawable d = getDrawable(R.mipmap.ic_launcher);
+
+        if (!isOnlineNet()) {
+            Toast.makeText(this, "No se puede acceder al servicio. Compruebe su conexion a Internet.", Toast.LENGTH_SHORT).show();
+            this.finish();
+        }
 
         pd = new ProgressDialog(this);
         pd.setMessage("Consultando informacion, por favor espere...");
@@ -215,5 +221,18 @@ public class CartaActivity extends AppCompatActivity {
         lchifa.clear();
         lparrilla.clear();
         lbebidas.clear();
+    }
+
+    public Boolean isOnlineNet() {
+        try {
+            Process p = java.lang.Runtime.getRuntime().exec("ping -c 1 www.google.com");
+            int val = p.waitFor();
+            boolean reachable = (val == 0);
+            return reachable;
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return false;
     }
 }
