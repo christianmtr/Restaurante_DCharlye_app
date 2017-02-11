@@ -2,6 +2,7 @@ package com.sistematica.restaurantedcharlye;
 
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -12,9 +13,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.sistematica.restaurantedcharlye.peticiones_servicioweb.PedirMesa;
 
 import org.json.JSONException;
@@ -29,6 +32,8 @@ public class ConsumosActivity extends AppCompatActivity {
     TextView tv_consumo_subtotal;
     ProgressDialog pd;
 
+    ImageView iv_voucher;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,7 +43,13 @@ public class ConsumosActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
         tv_consumo_subtotal = (TextView) findViewById(R.id.tv_consumo_subtotal);
+        iv_voucher = (ImageView) findViewById(R.id.iv_voucher);
+        int id_img_voucher = R.drawable.voucher;
+
+        Glide.with(this).load(id_img_voucher).into(iv_voucher);
 
         pd = new ProgressDialog(this);
 
@@ -112,7 +123,7 @@ public class ConsumosActivity extends AppCompatActivity {
                                         String subtotal = rr.getJSONObject("fields").getString("SubTotal");
                                         Log.d("json_decodeado", "SubTotal= " + subtotal);
 
-                                        tv_consumo_subtotal.setText(tv_consumo_subtotal.getText() + subtotal);
+                                        tv_consumo_subtotal.setText(subtotal);
                                     } catch (InterruptedException e) {
                                         e.printStackTrace();
                                     } catch (ExecutionException e) {

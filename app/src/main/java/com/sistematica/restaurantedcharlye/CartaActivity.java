@@ -87,18 +87,20 @@ public class CartaActivity extends AppCompatActivity {
             for (int i = 0; i < rr.getJSONObject(0).getJSONArray("platillos").length(); i++) {
                 String temp1 = rr.getJSONObject(0).getJSONArray("platillos").getJSONObject(i).getJSONObject("fields").getString("NombrePlatillo");
                 String temp2 = rr.getJSONObject(0).getJSONArray("platillos").getJSONObject(i).getJSONObject("fields").getString("TipoPlatillo");
+                String temp3 = rr.getJSONObject(0).getJSONArray("platillos").getJSONObject(i).getJSONObject("fields").getString("Precio");
                 if (temp2.equals("1")) {
-                    lpollos.add(new carta(d, temp1));
+                    lpollos.add(new carta(d, temp1, temp3));
                 } else if (temp2.equals("2")) {
-                    lchifa.add(new carta(d, temp1));
+                    lchifa.add(new carta(d, temp1, temp3));
                 } else if (temp2.equals("3")) {
-                    lparrilla.add(new carta(d, temp1));
+                    lparrilla.add(new carta(d, temp1, temp3));
                 }
             }
 
             for (int j = 0; j < rr.getJSONObject(1).getJSONArray("productos").length(); j++) {
                 String temp1 = rr.getJSONObject(1).getJSONArray("productos").getJSONObject(j).getJSONObject("fields").getString("NombreProducto");
-                lbebidas.add(new carta(d, temp1));
+                String temp2 = rr.getJSONObject(1).getJSONArray("productos").getJSONObject(j).getJSONObject("fields").getString("PrecioVenta");
+                lbebidas.add(new carta(d, temp1, temp2));
             }
 
         } catch (InterruptedException e) {

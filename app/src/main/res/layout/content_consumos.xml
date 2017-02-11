@@ -13,24 +13,23 @@
     tools:context="com.sistematica.restaurantedcharlye.ConsumosActivity"
     tools:showIn="@layout/activity_consumos">
 
-    <TextView
-        android:text="@string/tv_consumo_titulo"
+    <ImageView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+        android:layout_height="match_parent"
+        android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
-        android:id="@+id/tv_consumo_titulo"
-        android:textAlignment="textStart"
-        android:textSize="24sp" />
+        android:id="@+id/iv_voucher" />
 
     <TextView
         android:text="@string/tv_consumo_subtotal"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/tv_consumo_subtotal"
-        android:layout_below="@+id/tv_consumo_titulo"
-        android:layout_alignParentStart="true"
         android:textAlignment="center"
         android:textStyle="normal|bold"
-        android:textSize="36sp" />
+        android:textSize="30sp"
+        android:layout_marginBottom="115dp"
+        android:layout_marginEnd="32dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true" />
 </RelativeLayout>

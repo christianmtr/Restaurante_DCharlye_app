@@ -9,14 +9,16 @@ import android.graphics.drawable.Drawable;
 public class carta {
     private Drawable imagen;
     private String platillo;
+    private String precio;
 
     public carta(String platillo) {
         this.platillo = platillo;
     }
 
-    public carta(Drawable imagen, String platillo) {
+    public carta(Drawable imagen, String platillo, String precio) {
         this.imagen = imagen;
         this.platillo = platillo;
+        this.precio = precio;
     }
 
     public Drawable getImagen() {
@@ -33,6 +35,14 @@ public class carta {
 
     public void setPlatillo(String platillo) {
         this.platillo = platillo;
+    }
+
+    public String getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(String precio) {
+        this.precio = precio;
     }
 }
 

@@ -65,6 +65,9 @@ public class lista_carta extends BaseAdapter {
         TextView titulo = (TextView) v.findViewById(R.id.tv_lista);
         titulo.setText(dir.getPlatillo());
 
+        TextView precio = (TextView) v.findViewById(R.id.tv_precio);
+        precio.setText("S/. " + dir.getPrecio());
+
         ImageView img = (ImageView) v.findViewById(R.id.iv_lista);
         img.setImageDrawable(dir.getImagen());
 
