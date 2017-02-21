@@ -45,10 +45,14 @@ public class CartaActivity extends AppCompatActivity {
     private ViewPager mViewPager;
 
     static ListView lv_carta;
-    static ArrayList<carta> lpollos = new ArrayList<carta>();
-    static ArrayList<carta> lchifa = new ArrayList<carta>();
-    static ArrayList<carta> lparrilla = new ArrayList<carta>();
-    static ArrayList<carta> lbebidas = new ArrayList<carta>();
+    static ArrayList<carta> lista1 = new ArrayList<carta>(); // lista de pollos
+    static ArrayList<carta> lista2 = new ArrayList<carta>(); // lista de chifa
+    static ArrayList<carta> lista3 = new ArrayList<carta>(); // lista de parrillas
+    static String tipos[];
+
+    static JSONArray rr;
+
+    String tmp0;
 
     ProgressDialog pd;
 
@@ -77,30 +81,27 @@ public class CartaActivity extends AppCompatActivity {
 
         PedirListaCarta plc = new PedirListaCarta(pd);
 
+        tmp0 = new String();
+
         try {
             String r = plc.execute().get();
             Log.d("ElResultado", "r= " + r);
 
-//            JSONObject rr = new JSONObject(r.substring(1,r.length()-1));
-            JSONArray rr = new JSONArray(r);
+            rr = new JSONArray(r);
+            Log.d("JSON:", rr.toString());
 
-            for (int i = 0; i < rr.getJSONObject(0).getJSONArray("platillos").length(); i++) {
-                String temp1 = rr.getJSONObject(0).getJSONArray("platillos").getJSONObject(i).getJSONObject("fields").getString("NombrePlatillo");
-                String temp2 = rr.getJSONObject(0).getJSONArray("platillos").getJSONObject(i).getJSONObject("fields").getString("TipoPlatillo");
-                String temp3 = rr.getJSONObject(0).getJSONArray("platillos").getJSONObject(i).getJSONObject("fields").getString("Precio");
-                if (temp2.equals("1")) {
-                    lpollos.add(new carta(d, temp1, temp3));
-                } else if (temp2.equals("2")) {
-                    lchifa.add(new carta(d, temp1, temp3));
-                } else if (temp2.equals("3")) {
-                    lparrilla.add(new carta(d, temp1, temp3));
+            for (int i = 0; i < rr.length(); i++) {
+                String tmp1 = rr.getJSONObject(i).getString("a");
+                String tmp2 = rr.getJSONObject(i).getString("b");
+                String tmp3 = rr.getJSONObject(i).getString("c");
+
+                if (tmp3.equalsIgnoreCase("Pollo a la brasa")) {
+                    lista1.add(new carta(d, tmp1, tmp2));
+                } else if (tmp3.equalsIgnoreCase("Chifa")) {
+                    lista2.add(new carta(d, tmp1, tmp2));
+                } else if (tmp3.equalsIgnoreCase("Parrilla")) {
+                    lista3.add(new carta(d, tmp1, tmp2));
                 }
-            }
-
-            for (int j = 0; j < rr.getJSONObject(1).getJSONArray("productos").length(); j++) {
-                String temp1 = rr.getJSONObject(1).getJSONArray("productos").getJSONObject(j).getJSONObject("fields").getString("NombreProducto");
-                String temp2 = rr.getJSONObject(1).getJSONArray("productos").getJSONObject(j).getJSONObject("fields").getString("PrecioVenta");
-                lbebidas.add(new carta(d, temp1, temp2));
             }
 
         } catch (InterruptedException e) {
@@ -159,20 +160,16 @@ public class CartaActivity extends AppCompatActivity {
             /*********************************** mi codigo ****************************************/
             if ((getArguments().getInt(ARG_SECTION_NUMBER)) == 1) {
                 lv_carta = (ListView) rootView.findViewById(R.id.lv_lista_carta);
-                lista_carta adaptador_pollos = new lista_carta(getActivity(), lpollos);
+                lista_carta adaptador_pollos = new lista_carta(getActivity(), lista1);
                 lv_carta.setAdapter(adaptador_pollos);
             } else if ((getArguments().getInt(ARG_SECTION_NUMBER)) == 2) {
                 lv_carta = (ListView) rootView.findViewById(R.id.lv_lista_carta);
-                lista_carta adaptador_chifa = new lista_carta(getActivity(), lchifa);
+                lista_carta adaptador_chifa = new lista_carta(getActivity(), lista2);
                 lv_carta.setAdapter(adaptador_chifa);
             } else if ((getArguments().getInt(ARG_SECTION_NUMBER)) == 3) {
                 lv_carta = (ListView) rootView.findViewById(R.id.lv_lista_carta);
-                lista_carta adaptador_parrila = new lista_carta(getActivity(), lparrilla);
+                lista_carta adaptador_parrila = new lista_carta(getActivity(), lista3);
                 lv_carta.setAdapter(adaptador_parrila);
-            } else if ((getArguments().getInt(ARG_SECTION_NUMBER)) == 4) {
-                lv_carta = (ListView) rootView.findViewById(R.id.lv_lista_carta);
-                lista_carta adaptador_bebidas = new lista_carta(getActivity(), lbebidas);
-                lv_carta.setAdapter(adaptador_bebidas);
             }
 
             return rootView;
@@ -199,30 +196,27 @@ public class CartaActivity extends AppCompatActivity {
         @Override
         public int getCount() {
             // Show 4 total pages.
-            return 4;
+            return 3;
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
             switch (position) {
                 case 0:
-                    return "Pollo a la brasa";
+                    return "Pollos a la brasa";
                 case 1:
                     return "Chifa";
                 case 2:
                     return "Parrillas";
-                case 3:
-                    return "Bebidas";
             }
             return null;
         }
     }
 
     public void limpia_listas() {
-        lpollos.clear();
-        lchifa.clear();
-        lparrilla.clear();
-        lbebidas.clear();
+        lista1.clear();
+        lista2.clear();
+        lista3.clear();
     }
 
     public Boolean isOnlineNet() {

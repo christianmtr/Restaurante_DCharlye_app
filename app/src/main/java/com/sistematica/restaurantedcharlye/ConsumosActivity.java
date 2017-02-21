@@ -20,8 +20,8 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.sistematica.restaurantedcharlye.peticiones_servicioweb.PedirMesa;
 
+import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.concurrent.ExecutionException;
 
@@ -119,8 +119,8 @@ public class ConsumosActivity extends AppCompatActivity {
                                         String r = respuesta.execute().get();
                                         Log.d("ElResultado", "r= " + r);
 
-                                        JSONObject rr = new JSONObject(r.substring(1, r.length() - 1));
-                                        String subtotal = rr.getJSONObject("fields").getString("SubTotal");
+                                        JSONArray rr = new JSONArray(r);
+                                        String subtotal = rr.getJSONObject(0).getString("a");
                                         Log.d("json_decodeado", "SubTotal= " + subtotal);
 
                                         tv_consumo_subtotal.setText(subtotal);
