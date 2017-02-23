@@ -21,5 +21,8 @@
     <string name="tv_consumo_titulo">SubTotal</string>
     <string name="tv_consumo_subtotal">0.00</string>
 
+    <string name="title_activity_detalle_mesa">Detalle de consumo</string>
+    <string name="tv_detalle_mesa_numero">Mesa  </string>
+
     <string name="facebook_app_id">929649513802233</string>
 </resources>

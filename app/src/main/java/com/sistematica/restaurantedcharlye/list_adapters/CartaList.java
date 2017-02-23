@@ -1,4 +1,4 @@
-package com.sistematica.restaurantedcharlye.adaptores_lista;
+package com.sistematica.restaurantedcharlye.list_adapters;
 
 import android.app.Activity;
 import android.content.Context;
@@ -17,11 +17,11 @@ import java.util.ArrayList;
  * Created by christianmtr on 10/12/16.
  */
 
-public class lista_carta extends BaseAdapter {
+public class CartaList extends BaseAdapter {
     protected Activity activity;
-    protected ArrayList<carta> items;
+    protected ArrayList<CartaEntity> items;
 
-    public lista_carta(Activity activity, ArrayList<carta> items) {
+    public CartaList(Activity activity, ArrayList<CartaEntity> items) {
         this.activity = activity;
         this.items = items;
     }
@@ -35,7 +35,7 @@ public class lista_carta extends BaseAdapter {
         items.clear();
     }
 
-    public void addAll(ArrayList<carta> lista) {
+    public void addAll(ArrayList<CartaEntity> lista) {
         for (int i = 0; i < lista.size(); i++) {
             items.add(lista.get(i));
         }
@@ -60,7 +60,7 @@ public class lista_carta extends BaseAdapter {
             v = inf.inflate(R.layout.lista_carta, null);
         }
 
-        carta dir = items.get(i);
+        CartaEntity dir = items.get(i);
 
         TextView titulo = (TextView) v.findViewById(R.id.tv_lista);
         titulo.setText(dir.getPlatillo());

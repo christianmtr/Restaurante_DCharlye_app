@@ -17,4 +17,17 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="tabla_cabecera">
+        <item name="android:typeface">sans</item>
+        <item name="android:textColor">#000</item>
+        <item name="android:textSize">16dp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="tabla_celda">
+        <item name="android:typeface">sans</item>
+        <item name="android:textColor">#000</item>
+        <item name="android:textSize">15dp</item>
+        <item name="android:textStyle">normal</item>
+    </style>
 </resources>

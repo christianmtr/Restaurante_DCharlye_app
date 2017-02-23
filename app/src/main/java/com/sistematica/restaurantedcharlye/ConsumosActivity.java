@@ -2,6 +2,7 @@ package com.sistematica.restaurantedcharlye;
 
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -18,7 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.sistematica.restaurantedcharlye.peticiones_servicioweb.PedirMesa;
+import com.sistematica.restaurantedcharlye.webservice_consumer.MesaGet;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -32,7 +33,11 @@ public class ConsumosActivity extends AppCompatActivity {
     TextView tv_consumo_subtotal;
     ProgressDialog pd;
 
-    ImageView iv_voucher;
+    ImageView iv_voucher_arriba;
+    ImageView iv_voucher_abajo;
+
+    String nmesa;
+    String resultado_consumo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,10 +51,13 @@ public class ConsumosActivity extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         tv_consumo_subtotal = (TextView) findViewById(R.id.tv_consumo_subtotal);
-        iv_voucher = (ImageView) findViewById(R.id.iv_voucher);
-        int id_img_voucher = R.drawable.voucher;
+        iv_voucher_arriba = (ImageView) findViewById(R.id.iv_voucher_arriba);
+        iv_voucher_abajo = (ImageView) findViewById(R.id.iv_voucher_abajo);
+        int id_img_voucher_arriba = R.drawable.voucher_arriba;
+        int id_img_voucher_abajo = R.drawable.voucher_abajo;
 
-        Glide.with(this).load(id_img_voucher).into(iv_voucher);
+        Glide.with(this).load(id_img_voucher_arriba).into(iv_voucher_arriba);
+        Glide.with(this).load(id_img_voucher_abajo).into(iv_voucher_abajo);
 
         pd = new ProgressDialog(this);
 
@@ -85,6 +93,11 @@ public class ConsumosActivity extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_consumos) {
             Toast.makeText(this, "Aqui veras el detalle de tu pedido", Toast.LENGTH_SHORT).show();
+
+            Intent i = new Intent(this, DetalleMesaActivity.class);
+            i.putExtra("nmesa", nmesa);
+            i.putExtra("resultado_conumo", resultado_consumo);
+            startActivity(i);
         }
 
         return super.onOptionsItemSelected(item);
@@ -101,26 +114,31 @@ public class ConsumosActivity extends AppCompatActivity {
 
         builder.setView(v);
 
-        builder.setTitle("Igrese N° de mesa")
+        AlertDialog.Builder builder1 = builder.setTitle("Igrese N° de mesa")
                 .setPositiveButton("Consultar",
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                String nmesa = et_dialogo_nmesa.getText().toString();
-                                Log.d("Mesa", "nmesa=" + nmesa);
+                                nmesa = et_dialogo_nmesa.getText().toString();
+                                String ruta_consumo = "ver_detalle_mesa/" + nmesa + "/";
+                                String ruta_total = "ver_pedido/" + nmesa + "/";
+
+                                String row[] = new String[3];
 
                                 if (nmesa.isEmpty()) {
                                     Toast.makeText(ConsumosActivity.this, "Debe ingresar el número de mesa.", Toast.LENGTH_LONG).show();
                                     PedirNumeroMesaDialog().show();
                                 } else {
                                     pd.setMessage("Consultando informacion, por favor espere...");
-                                    PedirMesa respuesta = new PedirMesa(nmesa, pd, et_resultado);
+                                    MesaGet consumo = new MesaGet(ruta_consumo, pd);
+                                    MesaGet total = new MesaGet(ruta_total, pd);
                                     try {
-                                        String r = respuesta.execute().get();
-                                        Log.d("ElResultado", "r= " + r);
+                                        resultado_consumo = consumo.execute().get();
 
-                                        JSONArray rr = new JSONArray(r);
-                                        String subtotal = rr.getJSONObject(0).getString("a");
+                                        String resultado_total = total.execute().get();
+                                        Log.d("ElResultado", "r= " + resultado_total);
+                                        JSONArray json_total = new JSONArray(resultado_total);
+                                        String subtotal = json_total.getJSONObject(0).getString("a");
                                         Log.d("json_decodeado", "SubTotal= " + subtotal);
 
                                         tv_consumo_subtotal.setText(subtotal);

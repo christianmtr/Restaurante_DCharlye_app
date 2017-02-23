@@ -1,4 +1,4 @@
-package com.sistematica.restaurantedcharlye.peticiones_servicioweb;
+package com.sistematica.restaurantedcharlye.webservice_consumer;
 
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
@@ -14,39 +14,25 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 /**
- * Created by christianmtr on 14/01/17.
+ * Created by christianmtr on 02/01/17.
  */
 
-public class PedirListaCarta extends AsyncTask<Void, Void, String> {
-
-    ProgressDialog pd;
+public class MesaGet extends AsyncTask<String, Void, String> {
+    private String ruta;
     InputStream in = null;
+    ProgressDialog pd;
 
-    public PedirListaCarta(ProgressDialog pd) {
-        this.pd = pd;
+    public MesaGet(String url, ProgressDialog p) {
+        super();
+        ruta = url;
+        pd = p;
     }
 
     @Override
-    protected void onPreExecute() {
-        super.onPreExecute();
-        pd.setCancelable(false);
-        pd.show();
-        Log.d("onPreExecute", "Ya esta aqui");
-    }
-
-    @Override
-    protected void onPostExecute(String s) {
-        super.onPostExecute(s);
-        pd.dismiss();
-        Log.d("onPostExecute", "parametro= " + s);
-        Log.d("onPostExecute", "termino");
-    }
-
-    @Override
-    protected String doInBackground(Void... params) {
-        String u = "http://restaurantedcharlye.pythonanywhere.com//servicio_web/lista/";
+    protected String doInBackground(String... params) {
+        String u = "http://restaurantedcharlye.pythonanywhere.com/servicio_web/" + ruta;
         HttpURLConnection urlConnection = null;
-        Log.d("Peticion", "doInBackground: u=" + u);
+        Log.d("Peticion", "ruta=" + u);
         StringBuilder sb = null;
         try {
             URL url = new URL(u);
@@ -75,9 +61,21 @@ public class PedirListaCarta extends AsyncTask<Void, Void, String> {
             Log.d("Segundo catch", "IOExection");
         } finally {
             urlConnection.disconnect();
-            Log.d("Finally", "Ya esta aqui");
         }
 
         return sb.toString();
+    }
+
+    @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+        pd.setCancelable(false);
+        pd.show();
+    }
+
+    @Override
+    protected void onPostExecute(String s) {
+        super.onPostExecute(s);
+        pd.dismiss();
     }
 }

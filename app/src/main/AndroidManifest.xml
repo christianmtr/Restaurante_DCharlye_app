@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.sistematica.restaurantedcharlye">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -60,11 +63,19 @@
             android:value="@string/facebook_app_id" />
 
         <provider
-            android:authorities="com.facebook.app.FacebookContentProvider929649513802233"
             android:name="com.facebook.FacebookContentProvider"
+            android:authorities="com.facebook.app.FacebookContentProvider929649513802233"
             android:exported="true" />
+
+        <activity
+            android:name=".DetalleMesaActivity"
+            android:label="@string/title_activity_detalle_mesa"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.sistematica.restaurantedcharlye.MainActivity" />
+        </activity>
     </application>
 
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 </manifest>

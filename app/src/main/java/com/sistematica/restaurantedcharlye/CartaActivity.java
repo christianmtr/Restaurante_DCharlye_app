@@ -17,9 +17,9 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.sistematica.restaurantedcharlye.adaptores_lista.carta;
-import com.sistematica.restaurantedcharlye.adaptores_lista.lista_carta;
-import com.sistematica.restaurantedcharlye.peticiones_servicioweb.PedirListaCarta;
+import com.sistematica.restaurantedcharlye.list_adapters.CartaEntity;
+import com.sistematica.restaurantedcharlye.list_adapters.CartaList;
+import com.sistematica.restaurantedcharlye.webservice_consumer.ListaCartaGet;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -45,9 +45,9 @@ public class CartaActivity extends AppCompatActivity {
     private ViewPager mViewPager;
 
     static ListView lv_carta;
-    static ArrayList<carta> lista1 = new ArrayList<carta>(); // lista de pollos
-    static ArrayList<carta> lista2 = new ArrayList<carta>(); // lista de chifa
-    static ArrayList<carta> lista3 = new ArrayList<carta>(); // lista de parrillas
+    static ArrayList<CartaEntity> lista1 = new ArrayList<CartaEntity>(); // lista de pollos
+    static ArrayList<CartaEntity> lista2 = new ArrayList<CartaEntity>(); // lista de chifa
+    static ArrayList<CartaEntity> lista3 = new ArrayList<CartaEntity>(); // lista de parrillas
     static String tipos[];
 
     static JSONArray rr;
@@ -79,7 +79,7 @@ public class CartaActivity extends AppCompatActivity {
         pd = new ProgressDialog(this);
         pd.setMessage("Consultando informacion, por favor espere...");
 
-        PedirListaCarta plc = new PedirListaCarta(pd);
+        ListaCartaGet plc = new ListaCartaGet(pd);
 
         tmp0 = new String();
 
@@ -96,11 +96,11 @@ public class CartaActivity extends AppCompatActivity {
                 String tmp3 = rr.getJSONObject(i).getString("c");
 
                 if (tmp3.equalsIgnoreCase("Pollo a la brasa")) {
-                    lista1.add(new carta(d, tmp1, tmp2));
+                    lista1.add(new CartaEntity(d, tmp1, tmp2));
                 } else if (tmp3.equalsIgnoreCase("Chifa")) {
-                    lista2.add(new carta(d, tmp1, tmp2));
+                    lista2.add(new CartaEntity(d, tmp1, tmp2));
                 } else if (tmp3.equalsIgnoreCase("Parrilla")) {
-                    lista3.add(new carta(d, tmp1, tmp2));
+                    lista3.add(new CartaEntity(d, tmp1, tmp2));
                 }
             }
 
@@ -160,15 +160,15 @@ public class CartaActivity extends AppCompatActivity {
             /*********************************** mi codigo ****************************************/
             if ((getArguments().getInt(ARG_SECTION_NUMBER)) == 1) {
                 lv_carta = (ListView) rootView.findViewById(R.id.lv_lista_carta);
-                lista_carta adaptador_pollos = new lista_carta(getActivity(), lista1);
+                CartaList adaptador_pollos = new CartaList(getActivity(), lista1);
                 lv_carta.setAdapter(adaptador_pollos);
             } else if ((getArguments().getInt(ARG_SECTION_NUMBER)) == 2) {
                 lv_carta = (ListView) rootView.findViewById(R.id.lv_lista_carta);
-                lista_carta adaptador_chifa = new lista_carta(getActivity(), lista2);
+                CartaList adaptador_chifa = new CartaList(getActivity(), lista2);
                 lv_carta.setAdapter(adaptador_chifa);
             } else if ((getArguments().getInt(ARG_SECTION_NUMBER)) == 3) {
                 lv_carta = (ListView) rootView.findViewById(R.id.lv_lista_carta);
-                lista_carta adaptador_parrila = new lista_carta(getActivity(), lista3);
+                CartaList adaptador_parrila = new CartaList(getActivity(), lista3);
                 lv_carta.setAdapter(adaptador_parrila);
             }
 
