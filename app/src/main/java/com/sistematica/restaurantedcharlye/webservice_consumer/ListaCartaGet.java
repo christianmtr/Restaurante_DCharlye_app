@@ -45,6 +45,7 @@ public class ListaCartaGet extends AsyncTask<Void, Void, String> {
         HttpURLConnection urlConnection = null;
         Log.d("Peticion", "ruta=" + u);
         StringBuilder sb = null;
+
         try {
             URL url = new URL(u);
             urlConnection = (HttpURLConnection) url.openConnection();

@@ -42,7 +42,6 @@ public class DetalleMesaActivity extends AppCompatActivity {
 
         try {
             JSONArray json_consumo = new JSONArray(resultado_conumo);
-
 /*
             String anterior = new String();
 
@@ -51,7 +50,6 @@ public class DetalleMesaActivity extends AppCompatActivity {
 
             String[] row = new String[3];
 */
-
             for (int i = 0; i < json_consumo.length(); i++) {
                 /*row[0] = json_consumo.getJSONObject(i).getString("a");
                 if (!(row[0].equalsIgnoreCase(anterior))) {

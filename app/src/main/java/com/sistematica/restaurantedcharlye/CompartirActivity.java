@@ -51,8 +51,6 @@ public class CompartirActivity extends AppCompatActivity {
         shareDialog = new ShareDialog(this);
         shareDialog.show(content);
 
-//        ShareButton shareButton = (ShareButton) findViewById(R.id.shareButton);
-//        shareButton.setShareContent(content);
     }
 
 }

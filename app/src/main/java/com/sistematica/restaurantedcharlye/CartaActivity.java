@@ -80,7 +80,6 @@ public class CartaActivity extends AppCompatActivity {
         pd.setMessage("Consultando informacion, por favor espere...");
 
         ListaCartaGet plc = new ListaCartaGet(pd);
-
         tmp0 = new String();
 
         try {

@@ -60,7 +60,6 @@ public class DetalleMesaAdapter {
             texto.setTextAppearance(actividad, R.style.tabla_cabecera);
             texto.setBackgroundResource(R.drawable.tabla_celda_cabecera);
 //            texto.setLayoutParams(layoutCelda);
-
             fila.addView(texto);
         }
 

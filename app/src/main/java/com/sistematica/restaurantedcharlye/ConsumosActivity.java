@@ -67,6 +67,7 @@ public class ConsumosActivity extends AppCompatActivity {
             Toast.makeText(this, "No se puede acceder al servicio. Compruebe su conexion a Internet.", Toast.LENGTH_SHORT).show();
             this.finish();
         }
+
     }
 
     @Override

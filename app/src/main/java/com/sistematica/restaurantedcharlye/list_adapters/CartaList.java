@@ -24,6 +24,7 @@ public class CartaList extends BaseAdapter {
     public CartaList(Activity activity, ArrayList<CartaEntity> items) {
         this.activity = activity;
         this.items = items;
+
     }
 
     @Override
