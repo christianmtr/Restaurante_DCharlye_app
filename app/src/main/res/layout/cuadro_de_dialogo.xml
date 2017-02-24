@@ -5,6 +5,12 @@
     android:orientation="vertical"
     android:padding="24dp">
 
+    <CheckBox
+        android:text="@string/cb_dialogo_consumo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/cb_dialogo" />
+
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

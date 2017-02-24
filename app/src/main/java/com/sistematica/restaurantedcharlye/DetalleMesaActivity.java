@@ -36,6 +36,7 @@ public class DetalleMesaActivity extends AppCompatActivity {
         Log.d("DetalleMesaActivity", resultado_conumo);
 
         tv_detalle_mesa_numero.setText(tv_detalle_mesa_numero.getText() + " " + nmesa);
+        tl_detalle_mesa.setStretchAllColumns(true);
 
         DetalleMesaAdapter dmsa = new DetalleMesaAdapter(this, tl_detalle_mesa);
         dmsa.agregarCabecera(R.array.cabecera_detalle_mesa);
@@ -71,4 +72,9 @@ public class DetalleMesaActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        startActivity(getSupportParentActivityIntent());
+    }
 }

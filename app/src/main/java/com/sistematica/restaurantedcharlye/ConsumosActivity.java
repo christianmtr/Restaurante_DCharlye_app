@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -29,12 +30,13 @@ import java.util.concurrent.ExecutionException;
 public class ConsumosActivity extends AppCompatActivity {
 
     EditText et_dialogo_nmesa;
+    CheckBox cb_dialogo_consumo;
+
     EditText et_resultado;
     TextView tv_consumo_subtotal;
     ProgressDialog pd;
 
-    ImageView iv_voucher_arriba;
-    ImageView iv_voucher_abajo;
+    ImageView iv_voucher;
 
     String nmesa;
     String resultado_consumo;
@@ -51,13 +53,10 @@ public class ConsumosActivity extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         tv_consumo_subtotal = (TextView) findViewById(R.id.tv_consumo_subtotal);
-        iv_voucher_arriba = (ImageView) findViewById(R.id.iv_voucher_arriba);
-        iv_voucher_abajo = (ImageView) findViewById(R.id.iv_voucher_abajo);
-        int id_img_voucher_arriba = R.drawable.voucher_arriba;
-        int id_img_voucher_abajo = R.drawable.voucher_abajo;
+        iv_voucher = (ImageView) findViewById(R.id.iv_voucher);
+        int id_img_voucher = R.drawable.voucher;
 
-        Glide.with(this).load(id_img_voucher_arriba).into(iv_voucher_arriba);
-        Glide.with(this).load(id_img_voucher_abajo).into(iv_voucher_abajo);
+        Glide.with(this).load(id_img_voucher).into(iv_voucher);
 
         pd = new ProgressDialog(this);
 
@@ -111,6 +110,7 @@ public class ConsumosActivity extends AppCompatActivity {
 
         View v = inflater.inflate(R.layout.cuadro_de_dialogo, null);
 
+        cb_dialogo_consumo = (CheckBox) v.findViewById(R.id.cb_dialogo);
         et_dialogo_nmesa = (EditText) v.findViewById(R.id.et_dialogo_nmesa);
 
         builder.setView(v);
@@ -121,7 +121,15 @@ public class ConsumosActivity extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 nmesa = et_dialogo_nmesa.getText().toString();
-                                String ruta_consumo = "ver_detalle_mesa/" + nmesa + "/";
+
+                                String ruta_consumo;
+
+                                if (cb_dialogo_consumo.isChecked()) {
+                                    ruta_consumo = "ver_detalle_delivery/" + nmesa + "/";
+                                } else {
+                                    ruta_consumo = "ver_detalle_mesa/" + nmesa + "/";
+                                }
+
                                 String ruta_total = "ver_pedido/" + nmesa + "/";
 
                                 String row[] = new String[3];
@@ -138,11 +146,18 @@ public class ConsumosActivity extends AppCompatActivity {
 
                                         String resultado_total = total.execute().get();
                                         Log.d("ElResultado", "r= " + resultado_total);
-                                        JSONArray json_total = new JSONArray(resultado_total);
-                                        String subtotal = json_total.getJSONObject(0).getString("a");
-                                        Log.d("json_decodeado", "SubTotal= " + subtotal);
+                                        if (validar_resultado(resultado_total)) {
+                                            JSONArray json_total = new JSONArray(resultado_total);
+                                            String subtotal = json_total.getJSONObject(0).getString("a");
+                                            Log.d("json_decodeado", "SubTotal= " + subtotal);
 
-                                        tv_consumo_subtotal.setText(subtotal);
+                                            tv_consumo_subtotal.setText(subtotal);
+                                        } else {
+                                            Toast.makeText(ConsumosActivity.this, "No se encontraron datos, por favor verifica la información proporcionada.", Toast.LENGTH_LONG).show();
+                                            cerrar_actividad();
+                                        }
+
+
                                     } catch (InterruptedException e) {
                                         e.printStackTrace();
                                     } catch (ExecutionException e) {
@@ -178,5 +193,21 @@ public class ConsumosActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         return false;
+    }
+
+    public Boolean validar_resultado(String r) {
+        // verifica si fueron devueltos datos, si la mesa o delivery tienen pedidos asignados.
+        return !r.equalsIgnoreCase("[]");
+    }
+
+    protected void cerrar_actividad() {
+        startActivity(getSupportParentActivityIntent());
+        this.finish();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        cerrar_actividad();
     }
 }

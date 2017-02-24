@@ -230,4 +230,10 @@ public class CartaActivity extends AppCompatActivity {
         }
         return false;
     }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        startActivity(getSupportParentActivityIntent());
+    }
 }
