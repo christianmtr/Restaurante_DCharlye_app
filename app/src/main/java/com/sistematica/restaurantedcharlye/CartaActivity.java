@@ -86,6 +86,11 @@ public class CartaActivity extends AppCompatActivity {
             String r = plc.execute().get();
             Log.d("ElResultado", "r= " + r);
 
+            if (!validar_resultado(r)) {
+                cerrar_actividad();
+                Toast.makeText(this, "Lo sentimos, no hemos encontrado datos. Vuelve a intentarlo más tarde.", Toast.LENGTH_LONG).show();
+            }
+
             rr = new JSONArray(r);
             Log.d("JSON:", rr.toString());
 
@@ -231,9 +236,20 @@ public class CartaActivity extends AppCompatActivity {
         return false;
     }
 
+    public Boolean validar_resultado(String r) {
+        // verifica si fueron devueltos datos, si la mesa o delivery tienen pedidos asignados.
+        return !r.equalsIgnoreCase("[]");
+    }
+
+    protected void cerrar_actividad() {
+        startActivity(getSupportParentActivityIntent());
+        this.finish();
+    }
+
     @Override
     protected void onPause() {
         super.onPause();
-        startActivity(getSupportParentActivityIntent());
+        cerrar_actividad();
     }
+
 }
