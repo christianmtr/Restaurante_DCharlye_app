@@ -19,7 +19,6 @@ public class CartaEntity {
         this.imagen = imagen;
         this.platillo = platillo;
         this.precio = precio;
-
     }
 
     public Drawable getImagen() {

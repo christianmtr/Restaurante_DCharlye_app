@@ -10,6 +10,10 @@
             android:id="@+id/nav_consumo"
             android:icon="@drawable/ic_menu_consumo"
             android:title="@string/menu_consumo" />
+        <item
+            android:id="@+id/nav_agregar_delivery"
+            android:icon="@android:drawable/ic_menu_set_as"
+            android:title="@string/menu_agregar_delivery" />
     </group>
 
     <item android:title="Communicate">
