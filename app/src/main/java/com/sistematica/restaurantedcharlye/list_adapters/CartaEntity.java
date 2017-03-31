@@ -11,6 +11,8 @@ public class CartaEntity {
     private String platillo;
     private String precio;
 
+    public CartaEntity() { }
+
     public CartaEntity(String platillo) {
         this.platillo = platillo;
     }

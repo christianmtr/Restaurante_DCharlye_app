@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "1072061805589",
+    "firebase_url": "https://restaurant-dcharlye-movil.firebaseio.com",
+    "project_id": "restaurant-dcharlye-movil",
+    "storage_bucket": "restaurant-dcharlye-movil.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1072061805589:android:9e6f7c9e8d8d0649",
+        "android_client_info": {
+          "package_name": "com.sistematica.restaurantedcharlye"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1072061805589-i2ruqcc2rgmc2t05vdjjlj52didhqbvd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBcyIBVRtNcw62eNoAaU4O7heqb98g4pns"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

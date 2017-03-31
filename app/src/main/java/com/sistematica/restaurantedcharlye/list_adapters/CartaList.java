@@ -9,6 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.sistematica.restaurantedcharlye.CartaActivity;
 import com.sistematica.restaurantedcharlye.R;
 
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ import java.util.ArrayList;
 
 public class CartaList extends BaseAdapter {
     protected Activity activity;
-    protected ArrayList<CartaEntity> items;
+    protected static ArrayList<CartaEntity> items;
 
     public CartaList(Activity activity, ArrayList<CartaEntity> items) {
         this.activity = activity;
@@ -53,7 +54,7 @@ public class CartaList extends BaseAdapter {
     }
 
     @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
+    public View getView(final int i, View view, ViewGroup viewGroup) {
         View v = view;
 
         if (view == null) {
@@ -74,4 +75,5 @@ public class CartaList extends BaseAdapter {
 
         return v;
     }
+
 }

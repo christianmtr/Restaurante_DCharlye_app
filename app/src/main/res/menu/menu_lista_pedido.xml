@@ -3,8 +3,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.sistematica.restaurantedcharlye.ListaPedidoActivity">
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/ver_pollos"
         android:orderInCategory="100"
-        android:title="@string/action_settings"
+        android:title="@string/menu_ver_pollos"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/ver_chifa"
+        android:orderInCategory="101"
+        android:title="@string/menu_ver_chifa" />
+    <item
+        android:id="@+id/ver_parrillas"
+        android:orderInCategory="102"
+        android:title="@string/menu_ver_parrilla" />
+    <item
+        android:id="@+id/ver_otros"
+        android:orderInCategory="103"
+        android:title="@string/menu_ver_otros" />
 </menu>

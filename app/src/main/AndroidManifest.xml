@@ -85,6 +85,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.sistematica.restaurantedcharlye.MainActivity" />
         </activity>
+        <activity
+            android:name=".ListaPedidoActivity"
+            android:label="@string/title_activity_lista_pedido"
+            android:parentActivityName=".AgregarDeliveryActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.sistematica.restaurantedcharlye.AgregarDeliveryActivity" />
+        </activity>
     </application>
 
 </manifest>
